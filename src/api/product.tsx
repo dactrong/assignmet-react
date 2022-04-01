@@ -5,18 +5,18 @@ export const createProduct = (product:any) =>{
     return instance.post(url,product)
 }
 export const listProduct = () =>{
-    const url = `product`
-    return instance.post(url)
+    const url = `products`
+    return instance.get(url)
 }
 export const readProduct = (_id:number) =>{
     const url = `product/${_id}`
-    return instance.post(url)
+    return instance.get(url)
 }
 export const remove = (_id:number) =>{
     const url = `product/${_id}`
-    return instance.post(url)
+    return instance.delete(url)
 }
 export const update = (product:any) =>{
     const url = `product/${product.id}`
-    return instance.post(url,product)
+    return instance.put(url,product)
 }
