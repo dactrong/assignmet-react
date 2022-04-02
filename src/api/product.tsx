@@ -1,9 +1,16 @@
 import instance from "./instance";
+import { isAuthenticated} from "../utils/localStogate"
+const {token, user} = isAuthenticated()
 
 export const createProduct = (product:any) =>{
-    const url = `product`
-    return instance.post(url,product)
+    const url = `products/${user._id}`;
+    return instance.post(url,product ,{
+        headers: {
+            "Authorization":`Bearer ${token}`
+        }
+    })
 }
+
 export const listProduct = () =>{
     const url = `products`
     return instance.get(url)
