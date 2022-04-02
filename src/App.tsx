@@ -5,13 +5,14 @@ import { Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './client/WebsiteLayout'
 import WebsiteCenter from './components/WebsiteCenter'
 import { ProductType } from './types/ProductType'
-import { listProduct } from './api/product'
+import { listProduct, remove } from './api/product'
 import Product from './client/Product'
 import ProductDetail from './client/ProductDetail'
 import Signin from './client/Signin'
 import SignUp from './client/SignUp'
 import AdminLayout from './admin/AdminLayout'
 import Dashboard from './admin/Dashboard'
+import ProductList from './admin/products/ProductList'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -22,6 +23,10 @@ function App() {
     }
     getProduct();
   }, [])
+  const onHandleRemoveProduct =  (_id:number) => {
+    remove(_id)
+    setProduct(products.filter(item => item._id !== _id))
+  }
   return (
     <div className="App">
       <Routes>
@@ -32,6 +37,7 @@ function App() {
         </Route>
         <Route path ="admin" element={<AdminLayout/>}>
            <Route index element ={<Dashboard/>}/>
+           <Route path ="product" element={<ProductList product={products} onRemoveProduct={onHandleRemoveProduct}/>}/>
         </Route>
         <Route path = "signin" element ={<Signin/>}/>
          <Route path ="Signup" element ={<SignUp/>}/>
