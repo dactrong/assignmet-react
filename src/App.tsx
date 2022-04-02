@@ -10,6 +10,8 @@ import Product from './client/Product'
 import ProductDetail from './client/ProductDetail'
 import Signin from './client/Signin'
 import SignUp from './client/SignUp'
+import AdminLayout from './admin/AdminLayout'
+import Dashboard from './admin/Dashboard'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -27,6 +29,9 @@ function App() {
           <Route index element={<WebsiteCenter product={products} />} />
           <Route path ="product" element={<Product product ={products} />} />
           <Route path = "product/:id" element={<ProductDetail/>}/>
+        </Route>
+        <Route path ="admin" element={<AdminLayout/>}>
+           <Route index element ={<Dashboard/>}/>
         </Route>
         <Route path = "signin" element ={<Signin/>}/>
          <Route path ="Signup" element ={<SignUp/>}/>
