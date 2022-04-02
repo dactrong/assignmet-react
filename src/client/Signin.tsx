@@ -1,14 +1,29 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, NavLink } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { signin } from '../api/user'
 import { ProductType } from '../types/ProductType'
+import { authenticate } from '../utils/localStogate'
 
 type Props = {}
+type FormInput = {
+    email: string,
+    password: string | number,
 
+
+}
 
 const Signin = (props: Props) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ProductType>()
+    const { register, handleSubmit, formState: { errors } } = useForm<FormInput>()
+    const navigate = useNavigate()
+    const onSubmit: SubmitHandler<FormInput> = async (data) => {
+        const { data: user } = await signin(data)
+        authenticate(user, () => {
+            navigate("/")
+        })
+    }
+
     return (
         <div>
             <div>
@@ -83,14 +98,14 @@ const Signin = (props: Props) => {
                                             </div>
                                         </div>
                                         <div className="card-body">
-                                            <form className="text-start">
+                                            <form onSubmit={handleSubmit(onSubmit)} className="text-start">
                                                 <div className="input-group input-group-outline my-3">
-                                                    <label className="form-label" {...register('email')}>Email</label>
-                                                    <input type="email" className="form-control" />
+                                                    <label className="form-label">Email</label>
+                                                    <input type="email" className="form-control" {...register('email', { required: true })} />
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
                                                     <label className="form-label">Password</label>
-                                                    <input type="password" className="form-control" />
+                                                    <input type="password" className="form-control"{...register('password',{ required: true })} />
                                                 </div>
                                                 <div className="form-check form-switch d-flex align-items-center mb-3">
                                                     <input className="form-check-input" type="checkbox" id="rememberMe" />
@@ -100,8 +115,8 @@ const Signin = (props: Props) => {
                                                     <button type="submit" className="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                                                 </div>
                                                 <p className="mt-4 text-sm text-center">
-                                                    Đăng ký tài khoản ?
-                                                    <NavLink className="text-primary text-gradient font-weight-bold" to="/signup">Signup</NavLink>
+                                                    Đăng ký tài khoản?
+                                                    <a href="../pages/sign-up.html" className="text-primary text-gradient font-weight-bold">Sign up</a>
                                                 </p>
                                             </form>
                                         </div>
