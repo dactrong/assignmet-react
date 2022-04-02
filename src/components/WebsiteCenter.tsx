@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { ProductType } from '../types/ProductType'
 import Banner from './Banner'
 
@@ -34,7 +35,7 @@ const WebsiteCenter = ({ product }: ProductProps) => {
                                             </ul>
                                         </div>
                                         <div className="featured__item__text">
-                                            <h6><a href="#">{product.name}</a></h6>
+                                            <h6><Link to={`/product/${product._id}`} >{product?.name}</Link></h6>
                                             <h5>${product.price}</h5>
                                         </div>
                                     </div>

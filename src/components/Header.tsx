@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 type Props = {}
 
@@ -74,8 +75,8 @@ const Header = (props: Props) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope" /> hello@colorlib.com</li>
-                                        <li>Free Shipping for all Order of $99</li>
+                                        <li><i className="fa fa-envelope" /> dactrong2001@gmail.com</li>
+                                        <li>Giao hàng miễn phí</li>
                                     </ul>
                                 </div>
                             </div>
@@ -97,7 +98,8 @@ const Header = (props: Props) => {
                                         </ul>
                                     </div>
                                     <div className="header__top__right__auth">
-                                        <a href="#"><i className="fa fa-user" /> Login</a>
+                                        <Link to={`/signin`}><i className="fa fa-user" /> Login</Link>
+
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +116,8 @@ const Header = (props: Props) => {
                         <div className="col-lg-6">
                             <nav className="header__menu">
                                 <ul>
-                                    <li className="active"><a href="./index.html">Home</a></li>
-                                    <li><a href="./shop-grid.html">Shop</a></li>
+                                    <li className="active"><NavLink to="/">Home</NavLink></li>
+                                    <li><NavLink to="/product">Shop</NavLink></li>
                                     <li><a href="#">Pages</a>
                                         <ul className="header__menu__dropdown">
                                             <li><a href="./shop-details.html">Shop Details</a></li>
