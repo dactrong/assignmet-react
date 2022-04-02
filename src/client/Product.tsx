@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { ProductType } from '../types/ProductType'
 
 type Props = {
@@ -208,7 +209,8 @@ const Product = ({ product}: Props) => {
                     </ul>
                   </div>
                   <div className="product__item__text">
-                    <h6><a href="#">{product?.name}</a></h6>
+                  
+                    <h6><Link to = {`${product._id}`}>{product?.name}</Link></h6>
                     <h5>${product?.price}</h5>
                   </div>
                 </div>

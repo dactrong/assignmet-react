@@ -23,7 +23,7 @@ export const remove = (_id:number) =>{
     const url = `product/${_id}`
     return instance.delete(url)
 }
-export const update = (product:any) =>{
-    const url = `product/${product.id}`
+export const updateProduct = (product:any) =>{
+    const url = `product/${product._id}`
     return instance.put(url,product)
 }

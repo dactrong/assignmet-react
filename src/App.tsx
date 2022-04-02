@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './client/WebsiteLayout'
 import WebsiteCenter from './components/WebsiteCenter'
 import { ProductType } from './types/ProductType'
-import { createProduct, listProduct, remove } from './api/product'
+import { createProduct, listProduct, remove, updateProduct } from './api/product'
 import Product from './client/Product'
 import ProductDetail from './client/ProductDetail'
 import Signin from './client/Signin'
@@ -15,6 +15,7 @@ import Dashboard from './admin/Dashboard'
 import ProductList from './admin/products/ProductList'
 import PrivateRoute from './components/PrivateRoute'
 import ProductAdd from './admin/products/ProductAdd'
+import ProductEdit from './admin/products/ProductEdit'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -34,6 +35,10 @@ function App() {
     const { data } = await createProduct(product)
     setProduct([...products, data])
   }
+  const onhandleUpdate = async (product: any) => {
+    const {data} = await updateProduct (product)
+    setProduct(products.map( item => item._id === data._id ? product : item ))
+  }
   return (
     <div className="App">
       <Routes>
@@ -46,10 +51,11 @@ function App() {
         <Route path="admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="product"  >
-          <Route index element={<ProductList product={products} onRemoveProduct={onHandleRemoveProduct} />}/>
+            <Route index element={<ProductList product={products} onRemoveProduct={onHandleRemoveProduct} />} />
             <Route path="add" element={<ProductAdd onAdd={onHandleAdd} />} />
+            <Route path =":id/edit" element ={<ProductEdit onUpdate ={onhandleUpdate} />} />
           </Route>
-          
+
         </Route>
         <Route path="signin" element={<Signin />} />
         <Route path="Signup" element={<SignUp />} />

@@ -11,7 +11,7 @@ const WebsiteCenter = ({ product }: ProductProps) => {
     return (
         <div>
             <Banner />
-            <section className="featured spad">
+            <section className="featured spad ext-left">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
@@ -21,7 +21,7 @@ const WebsiteCenter = ({ product }: ProductProps) => {
 
                         </div>
                     </div>
-                    <div className="row featured__filter">
+                    <div className="row featured__filter t">
                         {product?.map((product, index) => {
                             return (
                                 <div className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" key={index}>
