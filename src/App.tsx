@@ -6,7 +6,7 @@ import WebsiteLayout from './client/WebsiteLayout'
 import WebsiteCenter from './components/WebsiteCenter'
 import { ProductType } from './types/ProductType'
 import { listProduct } from './api/product'
-import Product from './client/product'
+import Product from './client/Product'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<WebsiteLayout />}>
           <Route index element={<WebsiteCenter product={products} />} />
-          <Route path ="product" element={<Product/>}/>
+          <Route path ="product" element={<Product product ={products} />} />
         </Route>
       </Routes>
     </div>
