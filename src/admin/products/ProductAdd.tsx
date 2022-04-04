@@ -11,7 +11,7 @@ const ProductAdd = (props: ProduuctAddProps) => {
     const [category, setCategory] = useState<ProductType[]>([])
     useEffect(() => {
         const getCategory = async () => {
-       const { data} =  await listCategory(category)
+       const { data} =  await listCategory()
        setCategory(data)
         }
         getCategory();

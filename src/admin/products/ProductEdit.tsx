@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { listCategory } from '../../api/category'
 import { readProduct } from '../../api/product'
 import { ProductType } from '../../types/ProductType'
@@ -15,10 +15,10 @@ const ProductEdit = (props: ProductEditProps) => {
   const [category, setCategory] = useState<ProductType[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ProductType>()
   const { id } = useParams()
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getCategory = async () => {
-      const { data } = await listCategory(category);
+      const { data } = await listCategory();
       setCategory(data)
     }
     getCategory();
@@ -33,6 +33,7 @@ const ProductEdit = (props: ProductEditProps) => {
   }, [])
   const onSubmit: SubmitHandler<ProductType> = data => {
     props.onUpdate(data)
+  
   }
   return (
     <form className="w-90 px-6 " onSubmit={handleSubmit(onSubmit)}>

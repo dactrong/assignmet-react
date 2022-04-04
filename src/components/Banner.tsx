@@ -32,12 +32,9 @@ const Banner = (props: Props) => {
                         <div className="hero__search">
                             <div className="hero__search__form">
                                 <form action="#">
-                                    <div className="hero__search__categories">
-                                        All Categories
-                                        <span className="arrow_carrot-down" />
-                                    </div>
-                                    <input type="text" placeholder="What do yo u need?" />
-                                    <button type="submit" className="site-btn">SEARCH</button>
+                                    
+                                    <input type="text" placeholder="Bạn cần tìm gì?" />
+                                    <button type="submit" className="site-btn">TÌM KIẾM</button>
                                 </form>
                             </div>
                             <div className="hero__search__phone">
@@ -45,12 +42,13 @@ const Banner = (props: Props) => {
                                     <i className="fa fa-phone" />
                                 </div>
                                 <div className="hero__search__phone__text">
-                                    <h5>+65 11.188.888</h5>
-                                    <span>support 24/7 time</span>
+                                    <h5>0963209332</h5>
+                                    <span>Hỗ trợ 24/7 </span>
                                 </div>
                             </div>
                         </div>
-                        <div className="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                        <div className="hero__item set-bg" >
+                            
                             <div className="hero__text">
                                 <span>FRUIT FRESH</span>
                                 <h2>Vegetable <br />100% Organic</h2>

@@ -2,7 +2,6 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { signin } from '../api/user'
-import { ProductType } from '../types/ProductType'
 import { authenticate } from '../utils/localStogate'
 
 type Props = {}
@@ -49,12 +48,7 @@ const Signin = (props: Props) => {
 
                                             </li>
 
-                                            <li className="nav-item">
-                                                <a className="nav-link me-2" href="../pages/sign-in.html">
-                                                    <i className="fas fa-key opacity-6 text-dark me-1" />
-                                                    Sign In
-                                                </a>
-                                            </li>
+                                         
                                         </ul>
                                         <ul className="navbar-nav d-lg-block d-none">
                                             <li className="nav-item">
@@ -102,10 +96,14 @@ const Signin = (props: Props) => {
                                                 <div className="input-group input-group-outline my-3">
                                                     <label className="form-label">Email</label>
                                                     <input type="email" className="form-control" {...register('email', { required: true })} />
+                                                    {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>}
+
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
                                                     <label className="form-label">Password</label>
                                                     <input type="password" className="form-control"{...register('password',{ required: true })} />
+                                                    {errors.password && errors.password.type === "required" && <span>Mời bạn nhập password</span>}
+
                                                 </div>
                                                 <div className="form-check form-switch d-flex align-items-center mb-3">
                                                     <input className="form-check-input" type="checkbox" id="rememberMe" />
@@ -115,8 +113,8 @@ const Signin = (props: Props) => {
                                                     <button type="submit" className="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                                                 </div>
                                                 <p className="mt-4 text-sm text-center">
-                                                    Đăng ký tài khoản?
-                                                    <a href="../pages/sign-up.html" className="text-primary text-gradient font-weight-bold">Sign up</a>
+                                                   
+                                                    <Link to ='/signup'> Đăng ký tài khoản?</Link>
                                                 </p>
                                             </form>
                                         </div>

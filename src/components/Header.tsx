@@ -59,12 +59,7 @@ const Header = (props: Props) => {
                     <a href="#"><i className="fa fa-linkedin" /></a>
                     <a href="#"><i className="fa fa-pinterest-p" /></a>
                 </div>
-                <div className="humberger__menu__contact">
-                    <ul>
-                        <li><i className="fa fa-envelope" /> hello@colorlib.com</li>
-                        <li>Free Shipping for all Order of $99</li>
-                    </ul>
-                </div>
+                
             </div>
             {/* Humberger End */}
             {/* Header Section Begin */}
