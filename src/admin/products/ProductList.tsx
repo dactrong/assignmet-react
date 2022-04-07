@@ -64,8 +64,8 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                        
                        
                         <td className="align-middle">
-                          <button><Link to={`/admin/product/${product._id}/edit`}>Edit</Link></button>
-                          <button onClick={() => onRemoveProduct(product._id)}>Remove</button>
+                          <button  className="btn btn-outline-warning mx-2 px-2 py-1"><Link to={`/admin/product/${product._id}/edit`}>Edit</Link></button>
+                          <button  className="btn btn-outline-danger mx-2 px-2 py-1" onClick={() => onRemoveProduct(product._id)}>Remove</button>
                         </td>
                       </tr>
                     )

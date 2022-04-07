@@ -1,12 +1,18 @@
+import { isAuthenticated } from "../utils/localStogate"
 import instance from "./instance"
-
+const { token, user } = isAuthenticated()
 export const listCategory = () =>{
     const url = `category`
     return instance.get(url)
 }
 export const createCategory = (category:any) =>{
-    const url = `category`
-    return instance.post(url, category)
+    const url = `category/${user.id}`
+    return instance.post(url, category , {
+
+        headers:{
+            "authorization":`Bearer ${token}`
+        }
+    } )
 }
 export const removeCategory = (_id:number) =>{
     const url = `category/${_id}`

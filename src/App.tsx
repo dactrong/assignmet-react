@@ -17,7 +17,8 @@ import ProductAdd from './admin/products/ProductAdd'
 import ProductEdit from './admin/products/ProductEdit'
 import CategoryList from './admin/categories/CategoryList'
 import { CategoryType } from './types/CategoryType'
-import { listCategory, removeCategory } from './api/category'
+import { createCategory, listCategory, removeCategory } from './api/category'
+import CategoryAdd from './admin/categories/CategoryAdd'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -54,6 +55,10 @@ function App() {
     removeCategory(_id)
     setCategory(categorys.filter(item => item._id !== _id))
   }
+  const onHandleAddCategory = async (category:any) =>{
+           const {data} = await createCategory(category)
+           setCategory([...category, data])
+  }
 
   return (
     <div className="App">
@@ -73,7 +78,7 @@ function App() {
           </Route>
           <Route path="category">
             <Route index element={<CategoryList category= {categorys} onRemoveCategory = {onHandleRemoveCategory} />} />
-
+            <Route path ="add" element ={<CategoryAdd onAddCategory={onHandleAddCategory} />} />
           </Route>
 
         </Route>

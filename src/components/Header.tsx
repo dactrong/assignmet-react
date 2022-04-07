@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-
-type Props = {}
+type Props = {
+    
+}
 
 const Header = (props: Props) => {
     return (
@@ -70,7 +71,7 @@ const Header = (props: Props) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope" /> dactrong2001@gmail.com</li>
+                                        <li><i className="fa fa-envelope "  />  dactrong2001@gmail.com</li>
                                         <li>Giao hàng miễn phí</li>
                                     </ul>
                                 </div>

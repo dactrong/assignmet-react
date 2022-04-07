@@ -22,6 +22,7 @@ const Signin = (props: Props) => {
             navigate("/")
         })
     }
+  
 
     return (
         <div>
@@ -94,19 +95,17 @@ const Signin = (props: Props) => {
                                         <div className="card-body">
                                             <form onSubmit={handleSubmit(onSubmit)} className="text-start">
                                                 <div className="input-group input-group-outline my-3">
-                                                    <label className="form-label">Email</label>
-                                                    <input type="email" className="form-control" {...register('email', { required: true })} />
-                                                    {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>}
+                                                    <input type="email" className="form-control" placeholder="Email" {...register('email', { required: true })} />
+                                                    {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>} 
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Password</label>
-                                                    <input type="password" className="form-control"{...register('password',{ required: true })} />
-                                                    {errors.password && errors.password.type === "required" && <span>Mời bạn nhập password</span>}
+                                                    <input type="password" className="form-control" placeholder ="Password" {...register('password',{ required: true })} /> <br />
+                                                    {errors.password && errors.password.type === "required" &&  <span>Mời bạn nhập password</span>}
 
                                                 </div>
                                                 <div className="form-check form-switch d-flex align-items-center mb-3">
-                                                    <input className="form-check-input" type="checkbox" id="rememberMe" />
+                                                    <input className="form-check-input" type="checkbox" id="rememberMe" /> <br />
                                                     <label className="form-check-label mb-0 ms-2" htmlFor="rememberMe">Remember me</label>
                                                 </div>
                                                 <div className="text-center">

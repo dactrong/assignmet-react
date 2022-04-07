@@ -88,32 +88,27 @@ const SignUp = (props: Props) => {
                                         <div className="card-body">
                                         <form onSubmit={handleSubmit(onSubmit)} >
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Name</label>
-                                                    <input type="text" className="form-control" {...register('name', { required: true })} />
+                                                    <input type="text" className="form-control" placeholder ="Name" {...register('name', { required: true })} />
                                                     {errors.name && errors.name.type === "required" && <span>Mời bạn nhập name</span>}
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Email</label>
-                                                    <input type="email" className="form-control" {...register('email', { required: true })} />
+                                                    <input type="email" className="form-control" placeholder ="Email" {...register('email', { required: true })} />
                                                     {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>}
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Password</label>
-                                                    <input type="password" className="form-control" {...register('password', { required: true })} />
+                                                    <input type="password" className="form-control" placeholder ="Password" {...register('password', { required: true })} />
                                                     {errors.password && errors.password.type === "required" && <span>Mời bạn nhập password</span>}
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Số điện thoại</label>
-                                                    <input type="text" className="form-control" {...register('phone', { required: true })} />
+                                                    <input type="text" className="form-control" placeholder ="Phone"{...register('phone', { required: true })} />
                                                     {errors.phone && errors.phone.type === "required" && <span>Mời bạn nhập số điện thoại</span>}
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <label className="form-label">Địa chỉ</label>
-                                                    <input type="text" className="form-control" {...register('address', { required: true })} />
+                                                    <input type="text" className="form-control" placeholder ="Address" {...register('address', { required: true })} />
                                                     {errors.address && errors.address.type === "required" && <span>Mời bạn nhập đại chỉ</span>}
 
                                                 </div>
