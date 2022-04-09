@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { isAuthenticate } from '../utils/localStogate'
+
 type Props = {
     
+}
+const  {user } = isAuthenticate()
+const logoutHandler = () =>{
+    localStorage.removeItem('user');
 }
 
 const Header = (props: Props) => {
@@ -62,6 +68,7 @@ const Header = (props: Props) => {
                 </div>
                 
             </div>
+           
             {/* Humberger End */}
             {/* Header Section Begin */}
             <header className="header">
@@ -71,7 +78,7 @@ const Header = (props: Props) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope "  />  dactrong2001@gmail.com</li>
+                                        <li><i className="fa fa-envelope "  />{user.email} </li>
                                         <li>Giao hàng miễn phí</li>
                                     </ul>
                                 </div>
@@ -95,7 +102,8 @@ const Header = (props: Props) => {
                                     </div>
                                     <div className="header__top__right__auth">
                                         <Link to={`/signin`}><i className="fa fa-user" /> Login</Link>
-
+                                        <Link to ="/" onClick={() => logoutHandler()}>logout</Link>
+                                        
                                     </div>
                                 </div>
                             </div>

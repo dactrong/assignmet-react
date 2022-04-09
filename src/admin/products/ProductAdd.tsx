@@ -41,7 +41,7 @@ const ProductAdd = (props: ProduuctAddProps) => {
                 {category?.map((category, index) => {
 
                     return (
-                        <option >{category?._id}</option >
+                        <option value={category._id} >{category?.name}</option >
 
                     )
 

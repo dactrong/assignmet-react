@@ -1,7 +1,7 @@
 import instance from "./instance";
-import { isAuthenticated } from "../utils/localStogate"
-const { token, user } = isAuthenticated()
-
+import { isAuthenticate } from "../utils/localStogate"
+const  {token , user } = isAuthenticate()
+ 
 export const createProduct = (product: any) => {
     const url = `products/${user._id}`;
     return instance.post(url, product, {

@@ -32,15 +32,20 @@ function App() {
   }, [])
 
   useEffect(() => {
-      const getCategory = async () => {
-        const {data} = await listCategory()
-        setCategory(data)
-      }
-      getCategory();
-  },[])
-  const onHandleRemoveProduct = (_id: number) => {
-    remove(_id)
-    setProduct(products.filter(item => item._id !== _id))
+    const getCategory = async () => {
+      const { data } = await listCategory()
+      setCategory(data)
+    }
+    getCategory();
+  }, [])
+  const onHandleRemoveProduct = async (_id: number) => {
+    const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
+    if (confirm) {
+      remove(_id)
+      setProduct(products.filter(item => item._id !== _id))
+      window.location.reload();
+    }
+
   }
 
   const onHandleAdd = async (product: any) => {
@@ -51,13 +56,18 @@ function App() {
     const { data } = await updateProduct(product)
     setProduct(products.map(item => item._id === data._id ? product : item))
   }
-  const onHandleRemoveCategory = async (_id:number) =>{
-    removeCategory(_id)
-    setCategory(categorys.filter(item => item._id !== _id))
+  const onHandleRemoveCategory =  (_id: number) => {
+    // const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
+    // if (confirm) {
+     removeCategory(_id)
+      setCategory(categorys.filter(item => item._id !== _id))
+    //   window.location.reload();
+    // }
+
   }
-  const onHandleAddCategory = async (category:any) =>{
-           const {data} = await createCategory(category)
-           setCategory([...category, data])
+  const onHandleAddCategory = async (category: any) => {
+    const { data } = await createCategory(category)
+    setCategory([...category, data])
   }
 
   return (
@@ -77,8 +87,8 @@ function App() {
             <Route path=":id/edit" element={<ProductEdit onUpdate={onhandleUpdate} />} />
           </Route>
           <Route path="category">
-            <Route index element={<CategoryList category= {categorys} onRemoveCategory = {onHandleRemoveCategory} />} />
-            <Route path ="add" element ={<CategoryAdd onAddCategory={onHandleAddCategory} />} />
+            <Route index element={<CategoryList category={categorys} onRemoveCategory={onHandleRemoveCategory} />} />
+            <Route path="add" element={<CategoryAdd onAddCategory={onHandleAddCategory} />} />
           </Route>
 
         </Route>

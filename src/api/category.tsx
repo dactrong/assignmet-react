@@ -1,6 +1,6 @@
-import { isAuthenticated } from "../utils/localStogate"
+import { isAuthenticate } from "../utils/localStogate"
 import instance from "./instance"
-const { token, user } = isAuthenticated()
+const { token, user } = isAuthenticate()
 export const listCategory = () =>{
     const url = `category`
     return instance.get(url)

@@ -58,7 +58,7 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                         </td>
                         
                         <td>
-                          <p className="text-xs font-weight-bold mb-0">{product.category}</p>
+                          <p className="text-xs font-weight-bold mb-0" >{product.category}</p>
 
                         </td>
                        

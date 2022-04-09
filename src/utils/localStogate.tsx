@@ -6,7 +6,7 @@ export const authenticate = (user: Usertype, next:()=>void) =>{
        next();
 }
 
-export const isAuthenticated = () => {
-    if(!localStorage.getItem('user')) return
-    return JSON.parse(localStorage.getItem('user') as string)
+export const isAuthenticate = () => {
+    if(!localStorage.getItem('user')) return;
+    return JSON.parse(localStorage.getItem('user') as string);
 }
