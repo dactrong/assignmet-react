@@ -1,14 +1,22 @@
 import React from 'react'
+import toastr from 'toastr'
+import "toastr/build/toastr.min.css";
 import { Link, NavLink } from 'react-router-dom'
 
 type Props = {
 
 }
-const a = JSON.parse(localStorage.getItem('user') as string);
+    const a = JSON.parse(localStorage.getItem('user') as string);
 
 const logoutHandler = () => {
-    localStorage.removeItem('user');
-    window.location.reload();
+    try {
+        localStorage.removeItem('user');
+        toastr.success("Đăng xuất thành công");
+        window.location.reload();
+    } catch (error) {
+        toastr.error("Thất bại");
+    }
+
 }
 
 const Header = (props: Props) => {
@@ -105,21 +113,21 @@ const Header = (props: Props) => {
                                     {a == null ? (<div className="header__top__right__auth">
 
                                         <Link to={`/signin`}><i className="fa fa-user" /> Login</Link>
-                                   
+
 
                                     </div>
-                                    ) : ( <div className="header__top__right__auth">
-                                            <div className="header__top__right__language">
+                                    ) : (<div className="header__top__right__auth">
+                                        <div className="header__top__right__language">
 
-                                                <div>{a?.user.name}</div>
-                                                <span className="arrow_carrot-down" />
-                                                <ul>
-                                                    <li><Link to={`/user`}>Thông tin </Link></li>
-                                                    <li><Link to="/" onClick={() => logoutHandler()}>Đăng xuất</Link></li>
-                                                </ul>
-                                            </div>
-
+                                            <div>{a?.user.name}</div>
+                                            <span className="arrow_carrot-down" />
+                                            <ul>
+                                                <li><Link to={`/user`}>Thông tin </Link></li>
+                                                <li><Link to="/" onClick={() => logoutHandler()}>Đăng xuất</Link></li>
+                                            </ul>
                                         </div>
+
+                                    </div>
                                     )}
                                 </div>
                             </div>

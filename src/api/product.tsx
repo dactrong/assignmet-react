@@ -9,7 +9,6 @@ export const createProduct = (product: any) => {
         }
     })
 }
-
 export const listProduct = () => {
     const url = `products`
     return instance.get(url)

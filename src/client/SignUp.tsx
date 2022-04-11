@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { signup } from '../api/user'
-
+import toastr from 'toastr'
+import "toastr/build/toastr.min.css";
 type Props = {}
 
 type FormInput = {
@@ -17,8 +18,14 @@ const SignUp = (props: Props) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>()
     const navigate  = useNavigate()
     const onSubmit: SubmitHandler<FormInput> = (data) => {
-        signup(data)
-        navigate("/signin")
+        try {
+            signup(data)
+            toastr.success("Đăng Kí thành công");
+            navigate("/signin")
+        } catch (error) {
+            
+        }
+       
     }
     return (
         <>

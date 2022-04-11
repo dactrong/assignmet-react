@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import WebsiteLayout from './client/WebsiteLayout'
 import WebsiteCenter from './components/WebsiteCenter'
 import { ProductType } from './types/ProductType'
@@ -19,11 +19,13 @@ import CategoryList from './admin/categories/CategoryList'
 import { CategoryType } from './types/CategoryType'
 import { createCategory, listCategory, removeCategory } from './api/category'
 import CategoryAdd from './admin/categories/CategoryAdd'
-import InfomationUser from './components/infomationUser'
-
+import InfomationUser from './components/InfomationUser'
+import toastr from 'toastr'
+import "toastr/build/toastr.min.css";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
   const [categorys, setCategory] = useState<CategoryType[]>([])
+  const navigate = useNavigate();
   useEffect(() => {
     const getProduct = async () => {
       const { data } = await listProduct()
@@ -50,35 +52,42 @@ function App() {
   }
 
   const onHandleAdd = async (product: any) => {
-    const { data } = await createProduct(product)
+    try {
+      const { data } = await createProduct(product)
     setProduct([...products, data])
+    toastr.success("Thếm sản phẩm thành công");
+     navigate("/admin/product")
+    } catch (error) {
+      
+    }
+    
   }
   const onhandleUpdate = async (product: any) => {
     const { data } = await updateProduct(product)
     setProduct(products.map(item => item._id === data._id ? product : item))
   }
   const onHandleRemoveCategory = async (_id: number) => {
-    // const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
-    // if (confirm) {
+    const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
+    if (confirm) {
      await removeCategory(_id)
       setCategory(categorys.filter(item => item._id !== _id))
-    //   window.location.reload();
-    // }
+      
+    }
 
   }
   const onHandleAddCategory = async (category: any) => {
     const { data } = await createCategory(category)
-    setCategory([...category, data])
+    setCategory([...categorys, data])
   }
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<WebsiteLayout  />}>
+        <Route path="/" element={<WebsiteLayout />}>
           <Route index element={<WebsiteCenter product={products}/>} />
           <Route path="product" element={<Product product={products} />} />
           <Route path="product/:id" element={<ProductDetail />} />
-          <Route path="user" element={<InfomationUser/>}/>
+          <Route path="user" element ={<InfomationUser/>}/>
         </Route>
         
         <Route path="admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>

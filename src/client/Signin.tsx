@@ -3,7 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { signin } from '../api/user'
 import { authenticate } from '../utils/localStogate'
-
+import toastr from 'toastr'
+import "toastr/build/toastr.min.css";
 type Props = {}
 type FormInput = {
     email: string,
@@ -17,12 +18,20 @@ const Signin = (props: Props) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>()
     const navigate = useNavigate()
     const onSubmit: SubmitHandler<FormInput> = async (data) => {
-        const { data: user } = await signin(data)
-        authenticate(user, () => {
-            navigate("/")
-        })
+        try {
+            const { data: user } = await signin(data)
+            toastr.success("Đăng nhập thành công");
+           
+            authenticate(user, () => {
+                navigate("/")
+            })
+          
+        } catch (error) {
+
+        }
+
     }
-  
+
 
     return (
         <div>
@@ -49,7 +58,7 @@ const Signin = (props: Props) => {
 
                                             </li>
 
-                                         
+
                                         </ul>
                                         <ul className="navbar-nav d-lg-block d-none">
                                             <li className="nav-item">
@@ -96,12 +105,12 @@ const Signin = (props: Props) => {
                                             <form onSubmit={handleSubmit(onSubmit)} className="text-start">
                                                 <div className="input-group input-group-outline my-3">
                                                     <input type="email" className="form-control" placeholder="Email" {...register('email', { required: true })} />
-                                                    {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>} 
+                                                    {errors.email && errors.email.type === "required" && <span>Mời bạn nhập email</span>}
 
                                                 </div>
                                                 <div className="input-group input-group-outline mb-3">
-                                                    <input type="password" className="form-control" placeholder ="Password" {...register('password',{ required: true })} /> <br />
-                                                    {errors.password && errors.password.type === "required" &&  <span>Mời bạn nhập password</span>}
+                                                    <input type="password" className="form-control" placeholder="Password" {...register('password', { required: true })} /> <br />
+                                                    {errors.password && errors.password.type === "required" && <span>Mời bạn nhập password</span>}
 
                                                 </div>
                                                 <div className="form-check form-switch d-flex align-items-center mb-3">
@@ -112,8 +121,8 @@ const Signin = (props: Props) => {
                                                     <button type="submit" className="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                                                 </div>
                                                 <p className="mt-4 text-sm text-center">
-                                                   
-                                                    <Link to ='/signup'> Đăng ký tài khoản?</Link>
+
+                                                    <Link to='/signup'> Đăng ký tài khoản?</Link>
                                                 </p>
                                             </form>
                                         </div>

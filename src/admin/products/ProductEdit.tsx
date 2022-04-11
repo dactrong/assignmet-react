@@ -54,7 +54,7 @@ const ProductEdit = (props: ProductEditProps) => {
       <select id="category" className="show-tick form-control border border-danger"   {...register('category', { required: true })}>
         {category?.map((category, index) => {
           return (
-            <option >{category?._id}</option >
+            <option value ={category?._id} >{category?.name}</option >
           )
 
         })}
