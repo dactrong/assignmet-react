@@ -3,13 +3,15 @@ import { Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 
-type Props = {}
+type Props = {
+   
+}
 
 const WebsiteLayout = (props: Props) => {
     return (
 
         <div>
-            <Header />
+            <Header  />
 
             <Outlet />
             <Footer />

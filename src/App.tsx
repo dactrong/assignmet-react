@@ -19,6 +19,7 @@ import CategoryList from './admin/categories/CategoryList'
 import { CategoryType } from './types/CategoryType'
 import { createCategory, listCategory, removeCategory } from './api/category'
 import CategoryAdd from './admin/categories/CategoryAdd'
+import InfomationUser from './components/infomationUser'
 
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
@@ -56,10 +57,10 @@ function App() {
     const { data } = await updateProduct(product)
     setProduct(products.map(item => item._id === data._id ? product : item))
   }
-  const onHandleRemoveCategory =  (_id: number) => {
+  const onHandleRemoveCategory = async (_id: number) => {
     // const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
     // if (confirm) {
-     removeCategory(_id)
+     await removeCategory(_id)
       setCategory(categorys.filter(item => item._id !== _id))
     //   window.location.reload();
     // }
@@ -73,12 +74,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<WebsiteLayout />}>
-          <Route index element={<WebsiteCenter product={products} />} />
+        <Route path="/" element={<WebsiteLayout  />}>
+          <Route index element={<WebsiteCenter product={products}/>} />
           <Route path="product" element={<Product product={products} />} />
           <Route path="product/:id" element={<ProductDetail />} />
-
+          <Route path="user" element={<InfomationUser/>}/>
         </Route>
+        
         <Route path="admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="product">

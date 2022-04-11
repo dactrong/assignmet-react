@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { listCategory } from '../api/category'
+import { CategoryType } from '../types/CategoryType'
 
 type Props = {}
 
 const Banner = (props: Props) => {
+    const [categorys, setCategory] = useState<CategoryType>()
+
+    useEffect(() => {
+        const getCategory = async () => {
+            const { data } = await listCategory()
+            setCategory(data)
+        }
+        getCategory();
+    }, [])
     return (
         <div> <section className="hero">
             <div className="container">
@@ -14,17 +26,15 @@ const Banner = (props: Props) => {
                                 <span>All departments</span>
                             </div>
                             <ul>
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit &amp; Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter &amp; Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya &amp; Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
-                                <li><a href="#">Fresh Bananas</a></li>
+                                {categorys?.map((category, index) => {
+
+                                    return (
+                                        <li><Link to={`/category/${category._id}/sort`}>{category?.name}</Link></li>
+                                    )
+
+                                })}
+
+
                             </ul>
                         </div>
                     </div>
@@ -32,7 +42,7 @@ const Banner = (props: Props) => {
                         <div className="hero__search">
                             <div className="hero__search__form">
                                 <form action="#">
-                                    
+
                                     <input type="text" placeholder="Bạn cần tìm gì?" />
                                     <button type="submit" className="site-btn">TÌM KIẾM</button>
                                 </form>
@@ -48,7 +58,7 @@ const Banner = (props: Props) => {
                             </div>
                         </div>
                         <div className="hero__item set-bg" >
-                            
+
                             <div className="hero__text">
                                 <span>FRUIT FRESH</span>
                                 <h2>Vegetable <br />100% Organic</h2>

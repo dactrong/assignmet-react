@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { isAuthenticate } from '../utils/localStogate'
 
 type Props = {
-    
+
 }
-const  {user } = isAuthenticate()
-const logoutHandler = () =>{
+const a = JSON.parse(localStorage.getItem('user') as string);
+
+const logoutHandler = () => {
     localStorage.removeItem('user');
+    window.location.reload();
 }
 
 const Header = (props: Props) => {
@@ -66,9 +67,9 @@ const Header = (props: Props) => {
                     <a href="#"><i className="fa fa-linkedin" /></a>
                     <a href="#"><i className="fa fa-pinterest-p" /></a>
                 </div>
-                
+
             </div>
-           
+
             {/* Humberger End */}
             {/* Header Section Begin */}
             <header className="header">
@@ -78,7 +79,8 @@ const Header = (props: Props) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope "  />{user.email} </li>
+
+                                        <li><Link to={`/user`}><i className="fa fa-envelope " />{a?.user.email} </Link></li>
                                         <li>Giao hàng miễn phí</li>
                                     </ul>
                                 </div>
@@ -100,11 +102,25 @@ const Header = (props: Props) => {
                                             <li><a href="#">English</a></li>
                                         </ul>
                                     </div>
-                                    <div className="header__top__right__auth">
+                                    {a == null ? (<div className="header__top__right__auth">
+
                                         <Link to={`/signin`}><i className="fa fa-user" /> Login</Link>
-                                        <Link to ="/" onClick={() => logoutHandler()}>logout</Link>
-                                        
+                                   
+
                                     </div>
+                                    ) : ( <div className="header__top__right__auth">
+                                            <div className="header__top__right__language">
+
+                                                <div>{a?.user.name}</div>
+                                                <span className="arrow_carrot-down" />
+                                                <ul>
+                                                    <li><Link to={`/user`}>Thông tin </Link></li>
+                                                    <li><Link to="/" onClick={() => logoutHandler()}>Đăng xuất</Link></li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
