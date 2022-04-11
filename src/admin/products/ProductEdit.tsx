@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { listCategory } from '../../api/category'
 import { readProduct } from '../../api/product'
 import { ProductType } from '../../types/ProductType'
-
+import axios from 'axios'
 type ProductEditProps = {
   onUpdate: (props: ProductType) => void
 }
@@ -13,6 +13,7 @@ type ProductEditProps = {
 
 const ProductEdit = (props: ProductEditProps) => {
   const [category, setCategory] = useState<ProductType[]>([])
+  const [image, setImage] = useState("") 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ProductType>()
   const { id } = useParams()
   const navigate = useNavigate();
@@ -31,7 +32,21 @@ const ProductEdit = (props: ProductEditProps) => {
     }
     getProduct();
   }, [])
-  const onSubmit: SubmitHandler<ProductType> = data => {
+  const onSubmit: SubmitHandler<ProductType> = async( data) => {
+    const CLOUDINARY_PRESET = "qoqbcmci";
+    const CLOUDINARY_API_URL =
+        "https://api.cloudinary.com/v1_1/dectee66b/image/upload";
+    if (image) {
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", CLOUDINARY_PRESET);
+        const img = await axios.post(CLOUDINARY_API_URL, formData, {
+            headers: {
+                "Content-Type": "application/form-data",
+            },
+        });
+        data.images = img.data.url;
+    }
     props.onUpdate(data)
   
   }
@@ -48,9 +63,17 @@ const ProductEdit = (props: ProductEditProps) => {
         <input type="number" className="form-control border border-danger" id="quantity" aria-describedby="emailHelp"  {...register('quantity', { required: true })} placeholder="Số lượng" />
       </div> <br />
       <div className="form-group ">
-        <input type="text" className="form-control border border-danger" id="images" aria-describedby="emailHelp"  {...register('images', { required: true })} placeholder="Ảnh" />
-      </div> <br />
-
+            <input
+                type="file"
+                {...register("images")}
+                onChange={(e) => { setImage(e.target.files[0])}}
+                id="images"
+              />
+              {/* <img src={image}  {...register("images")}/> */}
+            </div> <br />
+            <div className="form-group ">
+                <input type="text" className="form-control border border-danger" id="desc"  {...register('desc', { required: true })} placeholder="Mô tả" />
+            </div> <br />
       <select id="category" className="show-tick form-control border border-danger"   {...register('category', { required: true })}>
         {category?.map((category, index) => {
           return (
@@ -60,8 +83,8 @@ const ProductEdit = (props: ProductEditProps) => {
         })}
 
 
-      </select>
-      <button type="submit" className="btn btn-primary">Add Product</button>
+      </select> <br />
+      <button type="submit" className="btn btn-primary">Edit Product</button>
     </form>
   )
 }

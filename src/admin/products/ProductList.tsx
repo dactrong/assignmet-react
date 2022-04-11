@@ -32,6 +32,10 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                     <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ảnh</th>
                     <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá tiền</th>
                     <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số lượng</th>
+                    <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Danh mục</th>
+                    <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mô tả</th>
+
+
                     <th className="text-secondary opacity-7" />
                   </tr>
                 </thead>
@@ -59,6 +63,10 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                         
                         <td>
                           <p className="text-xs font-weight-bold mb-0" >{product.category}</p>
+
+                        </td>
+                        <td>
+                          <p className="text-xs font-weight-bold mb-0" >{product.desc}</p>
 
                         </td>
                        

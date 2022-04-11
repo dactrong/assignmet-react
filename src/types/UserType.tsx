@@ -1,5 +1,5 @@
 export type Usertype ={
-    
+    _id:any,
     email:string,
     name:string,
     password:string,

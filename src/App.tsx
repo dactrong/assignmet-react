@@ -22,9 +22,13 @@ import CategoryAdd from './admin/categories/CategoryAdd'
 import InfomationUser from './components/InfomationUser'
 import toastr from 'toastr'
 import "toastr/build/toastr.min.css";
+import { listUser, removeUser } from './api/user'
+import { Usertype } from './types/UserType'
+import UserList from './admin/user/UserList'
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
   const [categorys, setCategory] = useState<CategoryType[]>([])
+  const [users, setUser] = useState<Usertype[]>([])
   const navigate = useNavigate();
   useEffect(() => {
     const getProduct = async () => {
@@ -41,12 +45,20 @@ function App() {
     }
     getCategory();
   }, [])
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await listUser()
+      setUser(data)
+    }
+    getUser();
+  }, [])
   const onHandleRemoveProduct = async (_id: number) => {
     const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
     if (confirm) {
       remove(_id)
       setProduct(products.filter(item => item._id !== _id))
-      window.location.reload();
+      toastr.success("Xóa sản phẩm thành công");
     }
 
   }
@@ -54,24 +66,31 @@ function App() {
   const onHandleAdd = async (product: any) => {
     try {
       const { data } = await createProduct(product)
-    setProduct([...products, data])
-    toastr.success("Thếm sản phẩm thành công");
-     navigate("/admin/product")
+      setProduct([...products, data])
+      toastr.success("Thếm sản phẩm thành công");
+      navigate("/admin/product")
     } catch (error) {
-      
+
     }
-    
+
   }
   const onhandleUpdate = async (product: any) => {
-    const { data } = await updateProduct(product)
-    setProduct(products.map(item => item._id === data._id ? product : item))
+    try {
+      const { data } = await updateProduct(product)
+      setProduct(products.map(item => item._id === data._id ? product : item))
+      toastr.success("Update sản phẩm thành công");
+      navigate("/admin/product")
+    } catch (error) {
+
+    }
+
   }
   const onHandleRemoveCategory = async (_id: number) => {
     const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
     if (confirm) {
-     await removeCategory(_id)
+      await removeCategory(_id)
       setCategory(categorys.filter(item => item._id !== _id))
-      
+
     }
 
   }
@@ -80,16 +99,27 @@ function App() {
     setCategory([...categorys, data])
   }
 
+  const  onHandleRemoveUser = async (_id: number) => {
+    const confirm = window.confirm("Bạn có chắc chắn muốn xóa không?")
+    if (confirm) {
+      await removeUser(_id)
+      setUser(users.filter(item => item._id !== _id))
+
+    }
+
+  }
+ 
+
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<WebsiteLayout />}>
-          <Route index element={<WebsiteCenter product={products}/>} />
+          <Route index element={<WebsiteCenter product={products} />} />
           <Route path="product" element={<Product product={products} />} />
           <Route path="product/:id" element={<ProductDetail />} />
-          <Route path="user" element ={<InfomationUser/>}/>
+          <Route path="user" element={<InfomationUser />} />
         </Route>
-        
+
         <Route path="admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="product">
@@ -100,6 +130,9 @@ function App() {
           <Route path="category">
             <Route index element={<CategoryList category={categorys} onRemoveCategory={onHandleRemoveCategory} />} />
             <Route path="add" element={<CategoryAdd onAddCategory={onHandleAddCategory} />} />
+          </Route>
+          <Route path ="user">
+            <Route index element={<UserList user={users} onRemoveUser = {onHandleRemoveUser}/>}/>
           </Route>
 
         </Route>
