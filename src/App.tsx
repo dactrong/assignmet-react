@@ -17,7 +17,7 @@ import ProductAdd from './admin/products/ProductAdd'
 import ProductEdit from './admin/products/ProductEdit'
 import CategoryList from './admin/categories/CategoryList'
 import { CategoryType } from './types/CategoryType'
-import { createCategory, listCategory, removeCategory } from './api/category'
+import { createCategory, listCategory, removeCategory, updateCategory } from './api/category'
 import CategoryAdd from './admin/categories/CategoryAdd'
 import InfomationUser from './components/InfomationUser'
 import toastr from 'toastr'
@@ -25,6 +25,9 @@ import "toastr/build/toastr.min.css";
 import { listUser, removeUser } from './api/user'
 import { Usertype } from './types/UserType'
 import UserList from './admin/user/UserList'
+import UserEdit from './admin/user/UserEdit'
+import ProductSort from './components/ProductSort'
+import CategoryEdit from './admin/categories/CategoryEdit'
 function App() {
   const [products, setProduct] = useState<ProductType[]>([])
   const [categorys, setCategory] = useState<CategoryType[]>([])
@@ -108,6 +111,17 @@ function App() {
     }
 
   }
+  const onUpdateCategory = async (category: CategoryType) => {
+    try {
+      const { data } = await updateCategory(category)
+      setCategory(categorys.map(cates => cates._id === data._id ? category : cates))
+      toastr.success("Update danh mục thành công");
+      navigate("/admin/category")
+    } catch (error) {
+
+    }
+
+  }
  
 
   return (
@@ -118,6 +132,7 @@ function App() {
           <Route path="product" element={<Product product={products} />} />
           <Route path="product/:id" element={<ProductDetail />} />
           <Route path="user" element={<InfomationUser />} />
+          <Route path ="category/:id/sort" element={<ProductSort/>}/>
         </Route>
 
         <Route path="admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
@@ -130,9 +145,11 @@ function App() {
           <Route path="category">
             <Route index element={<CategoryList category={categorys} onRemoveCategory={onHandleRemoveCategory} />} />
             <Route path="add" element={<CategoryAdd onAddCategory={onHandleAddCategory} />} />
+            <Route path =":id/edit" element ={<CategoryEdit onUpdate ={onUpdateCategory}/>}/>
           </Route>
           <Route path ="user">
             <Route index element={<UserList user={users} onRemoveUser = {onHandleRemoveUser}/>}/>
+           
           </Route>
 
         </Route>

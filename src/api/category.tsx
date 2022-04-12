@@ -26,3 +26,8 @@ export const updateCategory = (product: any) => {
     const url = `category/${product._id}`
     return instance.put(url, product)
 }
+
+export const readCategory = (_id: number) => {
+    const url = `category/read/${_id}`
+    return instance.get(url)
+}

@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { listCateProduct } from '../api/category';
 import { ProductType } from '../types/ProductType'
 import Banner from './Banner'
 
 type ProductProps = {
     product: ProductType[];
+    
 }
 
 const WebsiteCenter = ({ product }: ProductProps) => {
     return (
         <div>
-            <Banner />
+            <Banner  />
             <section className="featured spad ext-left">
                 <div className="container">
                     <div className="row">
@@ -36,7 +38,7 @@ const WebsiteCenter = ({ product }: ProductProps) => {
                                         </div>
                                         <div className="featured__item__text">
                                             <h6><Link to={`/product/${product._id}`} >{product?.name}</Link></h6>
-                                            <h5>${product.price}</h5>
+                                            <h5>{product.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</h5>
                                         </div>
                                     </div>
                                 </div>

@@ -44,7 +44,7 @@ const CategoryList = ({ category, onRemoveCategory }: CategoryListProps) => {
                           </td>
 
                           <td className="align-middle py-2 " >
-                            <button type="button" className="btn btn-outline-warning mx-2 px-2 py-1"><Link to={`/admin/product/${category._id}/edit`} >Edit</Link></button> 
+                            <button type="button" className="btn btn-outline-warning mx-2 px-2 py-1"><Link to={`/admin/category/${category._id}/edit`} >Edit</Link></button> 
                             <button type="button" className="btn btn-outline-danger px-2 py-1" onClick={() => onRemoveCategory(category._id)}>Remover</button>
                           </td>
                         </tr>

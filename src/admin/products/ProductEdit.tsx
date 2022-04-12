@@ -10,13 +10,13 @@ type ProductEditProps = {
 }
 
 
-
 const ProductEdit = (props: ProductEditProps) => {
   const [category, setCategory] = useState<ProductType[]>([])
   const [image, setImage] = useState("") 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ProductType>()
   const { id } = useParams()
-  const navigate = useNavigate();
+  const [product, setProduct] = useState<ProductType[]>([])
+
   useEffect(() => {
     const getCategory = async () => {
       const { data } = await listCategory();
@@ -27,12 +27,15 @@ const ProductEdit = (props: ProductEditProps) => {
 
   useEffect(() => {
     const getProduct = async () => {
-      const { data } = await readProduct(id);
-      reset(data)
+      const { data:products } = await readProduct(id);
+     
+      reset(products)
+      setProduct(products)
     }
     getProduct();
   }, [])
   const onSubmit: SubmitHandler<ProductType> = async( data) => {
+    const image = data.images[0];
     const CLOUDINARY_PRESET = "qoqbcmci";
     const CLOUDINARY_API_URL =
         "https://api.cloudinary.com/v1_1/dectee66b/image/upload";
@@ -52,9 +55,10 @@ const ProductEdit = (props: ProductEditProps) => {
   }
   return (
     <form className="w-90 px-6 " onSubmit={handleSubmit(onSubmit)}>
-      <h2>Thêm sản phẩm</h2>
+      <h2>Update sản phẩm</h2>
       <div className="form-group ">
         <input type="text" className="form-control border border-danger" id="name" aria-describedby="emailHelp" {...register('name', { required: true })} placeholder="Tên sản phẩm" />
+   
       </div> <br />
       <div className="form-group">
         <input type="number" className="form-control border border-danger" id="price"  {...register('price', { required: true })} placeholder="Giá sản phẩm" />
@@ -66,10 +70,9 @@ const ProductEdit = (props: ProductEditProps) => {
             <input
                 type="file"
                 {...register("images")}
-                onChange={(e) => { setImage(e.target.files[0])}}
                 id="images"
               />
-              {/* <img src={image}  {...register("images")}/> */}
+              <img src={product.images}  />
             </div> <br />
             <div className="form-group ">
                 <input type="text" className="form-control border border-danger" id="desc"  {...register('desc', { required: true })} placeholder="Mô tả" />
@@ -77,7 +80,7 @@ const ProductEdit = (props: ProductEditProps) => {
       <select id="category" className="show-tick form-control border border-danger"   {...register('category', { required: true })}>
         {category?.map((category, index) => {
           return (
-            <option value ={category?._id} >{category?.name}</option >
+            <option value ={category?._id} key ={index}>{category?.name}</option >
           )
 
         })}

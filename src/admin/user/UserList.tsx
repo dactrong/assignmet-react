@@ -65,7 +65,7 @@ const UserList = ({user,onRemoveUser}: UserListProps) => {
                        
                        
                         <td className="align-middle">
-                          <button  className="btn btn-outline-warning mx-2 px-2 py-1"><Link to={`/admin/product/${user._id}/edit`}>Edit</Link></button>
+                          <button  className="btn btn-outline-warning mx-2 px-2 py-1"><Link to={`/admin/user/${user._id}/edit`}>Edit</Link></button>
                           <button  className="btn btn-outline-danger mx-2 px-2 py-1" onClick={() => onRemoveUser(user._id)}>Remove</button>
                         </td>
                       </tr>

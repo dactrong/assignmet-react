@@ -13,6 +13,10 @@ export const listUser = () =>{
     const url = `/listUser`;
     return instance.get(url)
 }
+export const readUser = (_id:number) =>{
+    const url = `/readUser/${_id}`;
+    return instance.get(url)
+}
 export const removeUser = (_id: number) => {
     const url = `/remove/${_id}/${a.user._id}`
     return instance.delete(url, {

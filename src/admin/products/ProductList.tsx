@@ -32,7 +32,6 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                     <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ảnh</th>
                     <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá tiền</th>
                     <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số lượng</th>
-                    <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Danh mục</th>
                     <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mô tả</th>
 
 
@@ -52,7 +51,7 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
                           <img src={product.images} alt="" width="100px" />
                         </td>
                         <td>
-                          <p className="text-xs font-weight-bold mb-0">{product.price}$</p>
+                          <p className="text-xs font-weight-bold mb-0">{product.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</p>
 
                         </td>
                       
@@ -61,10 +60,7 @@ const ProductList = ({product,onRemoveProduct}: ProductLitProps) => {
 
                         </td>
                         
-                        <td>
-                          <p className="text-xs font-weight-bold mb-0" >{product.category}</p>
-
-                        </td>
+                       
                         <td>
                           <p className="text-xs font-weight-bold mb-0" >{product.desc}</p>
 

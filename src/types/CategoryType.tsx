@@ -1,4 +1,4 @@
 export type CategoryType ={
-    _id:any
+    _id:any,
     name:string
 }

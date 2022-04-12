@@ -123,6 +123,7 @@ const Header = (props: Props) => {
                                             <span className="arrow_carrot-down" />
                                             <ul>
                                                 <li><Link to={`/user`}>Thông tin </Link></li>
+                                                <li><Link to={`/admin`}>Admin </Link></li>
                                                 <li><Link to="/" onClick={() => logoutHandler()}>Đăng xuất</Link></li>
                                             </ul>
                                         </div>

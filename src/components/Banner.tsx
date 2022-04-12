@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { listCategory } from '../api/category'
 import { CategoryType } from '../types/CategoryType'
+import { ProductType } from '../types/ProductType'
 
-type Props = {}
+type Props = {
+
+}
 
 const Banner = (props: Props) => {
     const [categorys, setCategory] = useState<CategoryType>()
@@ -15,6 +18,9 @@ const Banner = (props: Props) => {
         }
         getCategory();
     }, [])
+
+    // -----------------------------------------------------
+   
     return (
         <div> <section className="hero">
             <div className="container">
@@ -30,6 +36,7 @@ const Banner = (props: Props) => {
 
                                     return (
                                         <li><Link to={`/category/${category._id}/sort`}>{category?.name}</Link></li>
+                                        
                                     )
 
                                 })}
@@ -43,7 +50,7 @@ const Banner = (props: Props) => {
                             <div className="hero__search__form">
                                 <form action="#">
 
-                                    <input type="text" placeholder="Bạn cần tìm gì?" />
+                                    <input type="text" placeholder="Bạn cần tìm gì?"  />
                                     <button type="submit" className="site-btn">TÌM KIẾM</button>
                                 </form>
                             </div>
