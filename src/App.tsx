@@ -17,7 +17,7 @@ import ProductAdd from './admin/products/ProductAdd'
 import ProductEdit from './admin/products/ProductEdit'
 import CategoryList from './admin/categories/CategoryList'
 import { CategoryType } from './types/CategoryType'
-import { createCategory, listCategory, removeCategory, updateCategory } from './api/category'
+import { createCategory, listCategory, listCateProduct, removeCategory, updateCategory } from './api/category'
 import CategoryAdd from './admin/categories/CategoryAdd'
 import InfomationUser from './components/InfomationUser'
 import toastr from 'toastr'
@@ -93,13 +93,14 @@ function App() {
     if (confirm) {
       await removeCategory(_id)
       setCategory(categorys.filter(item => item._id !== _id))
-
+      toastr.success("Xóa danh mục thành công");
     }
 
   }
   const onHandleAddCategory = async (category: any) => {
     const { data } = await createCategory(category)
     setCategory([...categorys, data])
+    toastr.success("Thêm danh mục thành công");
   }
 
   const  onHandleRemoveUser = async (_id: number) => {
@@ -107,7 +108,7 @@ function App() {
     if (confirm) {
       await removeUser(_id)
       setUser(users.filter(item => item._id !== _id))
-
+      toastr.success("Xóa User thành công");
     }
 
   }
@@ -122,14 +123,18 @@ function App() {
     }
 
   }
- 
+  const onclickcateProduct =async (id:number)=>{
+    const {data}= await listCateProduct(id);
+   console.log(data);
+   setProduct(data.product);
+   }
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<WebsiteLayout />}>
           <Route index element={<WebsiteCenter product={products} />} />
-          <Route path="product" element={<Product product={products} />} />
+          <Route path="product" element={<Product product={products} onclickProduct={onclickcateProduct} />} />
           <Route path="product/:id" element={<ProductDetail />} />
           <Route path="user" element={<InfomationUser />} />
           <Route path ="category/:id/sort" element={<ProductSort/>}/>

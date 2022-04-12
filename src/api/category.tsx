@@ -31,3 +31,9 @@ export const readCategory = (_id: number) => {
     const url = `category/read/${_id}`
     return instance.get(url)
 }
+
+
+export const listCateProduct =(id:number)=>{
+    const url = "/category/"+id;
+    return instance.get(url)
+}

@@ -4,11 +4,12 @@ import { listCategory } from '../api/category';
 import { CategoryType } from '../types/CategoryType';
 import { ProductType } from '../types/ProductType'
 
-type Props = {
+type ProductProps = {
   product: ProductType[];
+  onclickProduct: (id: string) => void;
 }
 
-const Product = ({ product }: Props) => {
+const Product = ({ product, onclickProduct }: ProductProps) => {
   const [categorys, setCategory] = useState<CategoryType>()
 
   useEffect(() => {
@@ -31,11 +32,16 @@ const Product = ({ product }: Props) => {
               <div className="sidebar">
                 <div className="sidebar__item">
                   <h4>Department</h4>
-                  <ul>
+                  <ul className=" text-left" >
                     {categorys?.map((category, index) => {
 
                       return (
-                        <li><Link to={`/category/${category._id}/sort`}>{category?.name}</Link></li>
+                        <li>
+
+                          <button className ="border-0 bg-white fs-6" onClick={() => onclickProduct(category._id) }>
+                            {category.name}
+                          </button>
+                        </li>
 
                       )
 
@@ -44,7 +50,7 @@ const Product = ({ product }: Props) => {
 
                   </ul>
                 </div>
-              
+
 
               </div>
             </div>

@@ -28,21 +28,10 @@ const Banner = (props: Props) => {
                     <div className="col-lg-3">
                         <div className="hero__categories">
                             <div className="hero__categories__all">
-                                <i className="fa fa-bars" />
-                                <span>All departments</span>
+                                
+                                <span>Hello</span>
                             </div>
-                            <ul>
-                                {categorys?.map((category, index) => {
-
-                                    return (
-                                        <li><Link to={`/category/${category._id}/sort`}>{category?.name}</Link></li>
-                                        
-                                    )
-
-                                })}
-
-
-                            </ul>
+                            
                         </div>
                     </div>
                     <div className="col-lg-9">
@@ -64,15 +53,7 @@ const Banner = (props: Props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="hero__item set-bg" >
-
-                            <div className="hero__text">
-                                <span>FRUIT FRESH</span>
-                                <h2>Vegetable <br />100% Organic</h2>
-                                <p>Free Pickup and Delivery Available</p>
-                                <a href="#" className="primary-btn">SHOP NOW</a>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
